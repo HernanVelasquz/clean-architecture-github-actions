@@ -6,10 +6,14 @@ on:
 jobs:
   pipeline:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
     steps:
       - name: Start full pipeline
         run: echo " Starting full pipeline"
-      
+
       - name: Trigger Test Workflow
         uses: actions/github-script@v7
         with:
