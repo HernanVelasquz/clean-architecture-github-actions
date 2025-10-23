@@ -26,9 +26,9 @@ jobs:
                 echo "Docker image built successfully"
 
             - name: Push docker image
-              uses: docker/push-action@v4
+              uses: docker/build-push-action@v5
               with:
                 context: .
                 file: Dockerfile
                 push: true
-                tags: clean-architecture-github-actions
+                tags: ${{ secrets.DOCKER_USERNAME }}/clean-architecture-github-actions:latest
