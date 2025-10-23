@@ -1,0 +1,16 @@
+name: Build and Push Docker Image
+
+on: 
+    workflow_call:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            
+            - name: build docker image
+              run: |
+                echo "Building docker image"
+                docker build -t clean-architecture-github-actions .

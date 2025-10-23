@@ -7,6 +7,14 @@ on:
   pull_request:
     branches: ["develop"]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  call-test:
-    uses: ./.github/workflows/dev/test.yml
+
+  call-linter:
+    uses: ./.github/workflows/linter.yml
+  call-build:
+    needs: call-linter
+    uses: ./.github/workflows/build.yml
