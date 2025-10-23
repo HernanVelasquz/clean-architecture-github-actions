@@ -9,7 +9,6 @@ on:
 
 jobs:
   test:
-    run-name: Test ${{ github.event.pull_request.title }} by ${{ github.actor }}
     runs-on: ubuntu-latest
 
     steps:

@@ -1,0 +1,27 @@
+name: Pipeline for CI/CD
+
+run-name: Test ${{ github.event.pull_request.title }} by ${{ github.actor }}
+
+on:
+  pull_request:
+    branches:
+      - main
+      - test
+      - develop
+
+jobs:
+  organize:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Test Workflow
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: "test.yml",
+              ref: context.ref,
+            });
