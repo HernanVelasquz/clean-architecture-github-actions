@@ -1,0 +1,12 @@
+name: Development Pipeline
+
+run-name: Development to ${{ github.event.pull_request.title }} by ${{ github.actor }}
+
+on:
+  push:
+  pull_request:
+    branches: ["develop"]
+
+jobs:
+  call-test:
+    uses: ./.github/workflows/dev/test.yml
