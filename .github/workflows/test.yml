@@ -9,6 +9,7 @@ on:
 
 jobs:
   test:
+    run-name: Test ${{ github.event.pull_request.title }} by ${{ github.actor }}
     runs-on: ubuntu-latest
 
     steps:
@@ -19,9 +20,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
-      
+
       - name: Install dependencies
-        run: yarn
-      
+        run: yarn install
+
       - name: Run tests
         run: yarn run test:cov
