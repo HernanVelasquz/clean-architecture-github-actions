@@ -9,4 +9,4 @@ on:
 
 jobs:
   call-test:
-    uses: ./.github/workflows/dev/test.yml
+    uses: ./.github/workflows/test.yml
