@@ -4,8 +4,9 @@ run-name: Development to ${{ github.event.pull_request.title }} by ${{ github.ac
 
 on:
   push:
+    branches: ["develop", "main", "test"]
   pull_request:
-    branches: ["develop"]
+    branches: ["develop", "main", test]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

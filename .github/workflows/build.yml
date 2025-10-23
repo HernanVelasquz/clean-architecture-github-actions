@@ -1,6 +1,6 @@
 name: Build and Push Docker Image
 
-on: 
+on:
     workflow_call:
 
 jobs:
@@ -9,26 +9,23 @@ jobs:
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
-            
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3.11
+
             - name: Login to Docker Hub
-              uses: docker/login-action@v2
+              uses: docker/login-action@v3.6
               with:
-                username: ${{ secrets.DOCKER_USERNAME }}
-                password: ${{ secrets.DOCKER_PASSWORD }}
-            
+                  username: ${{ secrets.DOCKER_USERNAME }}
+                  password: ${{ secrets.DOCKER_PASSWORD }}
+
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v3.6.0
-            
-            - name: build docker image
-              run: |
-                echo "Building docker image"
-                docker build -t clean-architecture-github-actions .
-                echo "Docker image built successfully"
 
-            - name: Push docker image
+            - name: Build and Push docker image
               uses: docker/build-push-action@v5
               with:
-                context: .
-                file: Dockerfile
-                push: true
-                tags: ${{ secrets.DOCKER_USERNAME }}/clean-architecture-github-actions:latest
+                  context: .
+                  file: Dockerfile
+                  push: true
+                  tags: ${{ secrets.DOCKER_USERNAME }}/clean-architecture-github-actions:latest
