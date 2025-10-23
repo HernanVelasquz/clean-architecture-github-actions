@@ -17,6 +17,10 @@ jobs:
               run: |
                   echo "Installing dependencies"
                   yarn install
+
+                  echo "Checking out repository"
+                  echo "DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}"
+                  echo "DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}"
             - name: Run lint
               run: |
                   echo "Running lint"
