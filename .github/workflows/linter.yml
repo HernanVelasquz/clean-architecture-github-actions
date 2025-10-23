@@ -1,0 +1,27 @@
+name: validation linter
+
+on:
+    workflow_call:
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "22.x"
+
+            - name: Install dependencies
+              run: |
+                  echo "Installing dependencies"
+                  yarn install
+
+            - name: Run lint
+              run: |
+                  echo "Running lint"
+                  yarn run lint
+                  yarn run format:check
