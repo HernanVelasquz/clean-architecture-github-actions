@@ -4,7 +4,7 @@ on:
     workflow_call:
 
 env: 
-  REGISTRY: hexagon-registry.io
+  REGISTRY: clean-architecture-github-actions
   IMAGE_NAME: ${{ github.repository}}
 jobs:
     build:
