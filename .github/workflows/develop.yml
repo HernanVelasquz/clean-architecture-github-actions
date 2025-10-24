@@ -13,9 +13,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-
   call-linter:
     uses: ./.github/workflows/linter.yml
+
   call-build:
     needs: call-linter
     uses: ./.github/workflows/build.yml
