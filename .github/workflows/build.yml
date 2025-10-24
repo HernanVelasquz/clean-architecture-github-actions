@@ -1,16 +1,26 @@
 name: Build and Push Docker Image
 
-on: 
+on:
     workflow_call:
 
+env: 
+  REGISTRY: hexagon-registry.io
+  IMAGE_NAME: ${{ github.repository}}
 jobs:
     build:
         runs-on: ubuntu-latest
+        
+        permissions:
+          contents: read
+          packages: write
+          attestations: write
+          id-token: write
+
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-            
-            - name: build docker image
-              run: |
-                echo "Building docker image"
-                docker build -t clean-architecture-github-actions .
+          - name: Checkout repository
+            uses: actions/checkout@v4
+
+          - name: Build docker image
+            run: docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+
+
