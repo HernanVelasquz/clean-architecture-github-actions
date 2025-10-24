@@ -9,25 +9,18 @@ env:
 jobs:
     build:
         runs-on: ubuntu-latest
+        
+        permissions:
+          contents: read
+          packages: write
+          attestations: write
+          id-token: write
+
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
+          - name: Checkout repository
+            uses: actions/checkout@v4
 
-            - name: Set up Docker Buildx
-              uses: docker/setup-buildx-action@v3
+          - name: Build docker image
+            run: docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
 
-            - name: Login to Docker Hub
-              uses: docker/login-action@v3
-              with:
-                registry: https://index.docker.io/v1/
-                username: ${{ secrets.DOCKER_USERNAME }}
-                password: ${{ secrets.DOCKER_PASSWORD }}
-            - name: Set up QEMU
-              uses: docker/setup-qemu-action@v3
-            - name: Build and Push docker image
-              uses: docker/build-push-action@v5
-              with:
-                  context: .
-                  file: Dockerfile
-                  push: true
-                  tags: ${{ secrets.DOCKER_USERNAME }}/clean-architecture-github-actions:latest
+
